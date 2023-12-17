@@ -1,5 +1,9 @@
 import logo from './logo.svg';
+import React from 'react';
 import { createRoot } from "react-dom/client";
+import Home from './pages/Home';
+import { Provider } from 'react-redux'
+import { store } from './redux/store';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,24 +17,26 @@ function App() {
       path: "/",
       element: (
         <div>
-          <h1>Hello World</h1>
-          <Link to="about">About Us</Link> {" "} {" "}
-          <Link to="xella">Xella</Link> 
+          <Link to="home">Home</Link> 
         </div>
       ),
     },
     {
-      path: "about",
-      element: <div>About</div>,
-    },
-    {
-      path :"xella",
-      element: <div>Xella</div>
+      path :"home",
+      element: <div><Home/></div>
     }
   ]);
   
-  createRoot(document.getElementById("root")).render(
-    <RouterProvider router={router} />
+ 
+  const root = createRoot(document.getElementById('root'));
+
+  root.render(
+    <React.StrictMode>
+      {/* Wrap the entire app with the Provider */}
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </React.StrictMode>
   );
   return (
     <div className="App">
